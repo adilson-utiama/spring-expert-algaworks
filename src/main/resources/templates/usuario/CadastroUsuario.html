@@ -6,6 +6,7 @@
 	
 <head>
 	<title>Cadastro de Usuario</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/stylesheets/vendors/bootstrap-switch.min.css}" />
 </head>
 
 <body>
@@ -53,26 +54,26 @@
 					</div>
 					<div class="col-sm-3 form-group">
 						<label for="status">Status</label>
-						<div class="checkbox">
-							<input type="checkbox"  />
-						<label>Ativo</label>
-					</div>
+						<div >
+							<input type="checkbox" class="js-status" data-size="small" data-off-color="danger"
+								data-on-text="Ativo" data-off-text="Inativo"/>
+						</div>
 					</div>
 				</div>
 				
 				<div class="row">
-					<div class="col-sm-3 form-group">
+					<div class="col-sm-6 form-group">
 						<label for="grupos" class="control-label">Grupos</label>
 						<div>
-  						<div class="checkbox  checkbox-inline"> 
-	    					<input type="checkbox" />
-	    					<label>Administrador</label>
-    					</div>
-    					<div class="checkbox  checkbox-inline"> 
-	    					<input type="checkbox" />
-	    					<label>Vendedor</label>
-    					</div>
-					</div>
+	  						<div class="checkbox  checkbox-inline"> 
+		    					<input type="checkbox" />
+		    					<label>Administrador</label>
+	    					</div>
+	    					<div class="checkbox  checkbox-inline"> 
+		    					<input type="checkbox" />
+		    					<label>Vendedor</label>
+	    					</div>
+						</div>
 					</div>
 				</div>
 			
@@ -81,6 +82,13 @@
 		
 		</div>
 	</section>
+		
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/vendors/bootstrap-switch.min.js}"></script>
+		<script>
+			$('.js-status').bootstrapSwitch();
+		</script>
+	</th:block>
 	
 </body>
 </html>
