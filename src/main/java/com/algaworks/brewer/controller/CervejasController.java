@@ -15,6 +15,8 @@ import com.algaworks.brewer.model.Cerveja;
 @RequestMapping("/cervejas/")
 public class CervejasController {
 
+	
+	
 	@RequestMapping("novo")
 	public String novo(Cerveja cerveja){
 		return "cerveja/CadastroCerveja";
