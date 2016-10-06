@@ -58,6 +58,7 @@ public class Cerveja implements Serializable{
 	@DecimalMax(value = "100.0", message = "A comissão não pode ser maior que 100%")
 	private BigDecimal comissao;
 	
+	@NotNull(message = "O estoque deve ser informado.")
 	@Max(value = 9999, message = "A quantidade em estoque não pode ser maior que 9.999")
 	@Column(name = "quantidade_estoque")
 	private Integer quantidadeEstoque;
