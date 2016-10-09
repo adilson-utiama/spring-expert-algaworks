@@ -14,16 +14,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.algaworks.brewer.model.Cerveja;
 import com.algaworks.brewer.model.Origem;
 import com.algaworks.brewer.model.Sabor;
-import com.algaworks.brewer.repository.Cervejas;
 import com.algaworks.brewer.repository.Estilos;
 import com.algaworks.brewer.service.CadastroCervejaService;
 
 @Controller
-@RequestMapping("/cervejas/")
+@RequestMapping("/cervejas")
 public class CervejasController {
-
-	@Autowired
-	private Cervejas cervejas;
 	
 	@Autowired
 	private Estilos estilos;
@@ -31,7 +27,7 @@ public class CervejasController {
 	@Autowired
 	private CadastroCervejaService cadastroCervejaService;
 	
-	@RequestMapping("novo")
+	@RequestMapping("/novo")
 	public ModelAndView novo(Cerveja cerveja){
 		ModelAndView mv = new ModelAndView("cerveja/CadastroCerveja");
 		mv.addObject("sabores", Sabor.values());
@@ -40,7 +36,7 @@ public class CervejasController {
 		return mv;
 	}
 	
-	@RequestMapping( value = "novo", method = RequestMethod.POST)
+	@RequestMapping(value = "/novo", method = RequestMethod.POST)
 	public ModelAndView cadastrar(@Valid Cerveja cerveja, BindingResult result, Model model,
 				RedirectAttributes attributes){
 		if(result.hasErrors()){
