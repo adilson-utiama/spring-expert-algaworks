@@ -19,7 +19,6 @@ import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -28,62 +27,67 @@ import com.algaworks.brewer.validation.SKU;
 
 @Entity
 @Table(name = "cerveja")
-public class Cerveja implements Serializable{
+public class Cerveja implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	private String foto;
+
+	@Column(name = "content_type")
+	private String contentType;
+
 	@Id
-	@GeneratedValue (strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer codigo;
-	
+
 	@SKU
 	@NotBlank(message = "SKU é obrigatório")
 	private String sku;
-	
+
 	@NotBlank(message = "Nome é obrigatório")
-	@Size(min = 5,  max = 25, message = "Nome deve conter entre 5 a 25 caracteres")
+	@Size(min = 5, max = 25, message = "Nome deve conter entre 5 a 25 caracteres")
 	private String nome;
-	
+
 	@Size(min = 10, max = 150, message = "Descrição dever conter de 10 a 150 caracteres")
 	private String descricao;
-	
+
 	@NotNull(message = "O valor deve ser informado.")
 	@DecimalMin(value = "2.00", message = "O valor da cerveja não pode ser menor que R$2,00.")
 	@DecimalMax(value = "9999999.99", message = "O valor da cerveja não pode ser maior que R$9.999.999,99.")
 	private BigDecimal valor;
-	
+
 	@NotNull(message = "O teor alcoolico deve ser informado.")
 	@Column(name = "teor_alcoolico")
 	@DecimalMax(value = "100.0", message = "O valor do teor alcoolico deve ser igual ou menor que 100")
 	private BigDecimal teorAlcoolico;
-	
+
 	@DecimalMax(value = "100.0", message = "A comissão não pode ser maior que 100%")
 	private BigDecimal comissao;
-	
+
 	@NotNull(message = "O estoque deve ser informado.")
 	@Max(value = 9999, message = "A quantidade em estoque não pode ser maior que 9.999")
 	@Column(name = "quantidade_estoque")
 	private Integer quantidadeEstoque;
-	
+
 	@NotNull(message = "A origem deve ser informado")
 	@Enumerated(EnumType.STRING)
 	private Origem origem;
-	
+
 	@NotNull(message = "O sabor deve ser informado")
 	@Enumerated(EnumType.STRING)
 	private Sabor sabor;
-	
+
 	@NotNull(message = "O estilo deve ser informado")
 	@ManyToOne
 	@JoinColumn(name = "codigo_estilo")
 	private Estilo estilo;
-	
-	
-	@PrePersist  @PreUpdate
-	private void prePersistUpdate(){
-		sku = sku.toUpperCase(); //ira persistir o sku em maiuscula, mesmo o usuario digitando em maiscula
+
+	@PrePersist
+	@PreUpdate
+	private void prePersistUpdate() {
+		sku = sku.toUpperCase(); // ira persistir o sku em maiuscula, mesmo o
+									// usuario digitando em maiscula
 	}
-	
 
 	public Integer getCodigo() {
 		return codigo;
@@ -173,6 +177,22 @@ public class Cerveja implements Serializable{
 		this.estilo = estilo;
 	}
 
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
+	public String getContentType() {
+		return contentType;
+	}
+
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -197,8 +217,5 @@ public class Cerveja implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
-	
 
 }
