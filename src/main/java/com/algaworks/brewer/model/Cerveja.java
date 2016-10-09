@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
@@ -75,6 +77,13 @@ public class Cerveja implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "codigo_estilo")
 	private Estilo estilo;
+	
+	
+	@PrePersist  @PreUpdate
+	private void prePersistUpdate(){
+		sku = sku.toUpperCase(); //ira persistir o sku em maiuscula, mesmo o usuario digitando em maiscula
+	}
+	
 
 	public Integer getCodigo() {
 		return codigo;
