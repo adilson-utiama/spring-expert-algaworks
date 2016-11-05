@@ -13,7 +13,7 @@ Brewer.UploadFoto = (function(){
 		this.uploadDrop = $('#upload-drop');
 	}
 	
-	UpploadFoto.prototype.iniciar = function(){
+	UploadFoto.prototype.iniciar = function(){
 		var settings = {
 			type: 'json',
 			filelimit: 1,
@@ -24,6 +24,10 @@ Brewer.UploadFoto = (function(){
 		
 		UIkit.uploadSelect($('#upload-select'), settings);
 		UIkit.uploadDrop($('#upload-drop'), settings);
+		
+		if(this.inputNomeFoto.val()){
+			onUploadCompleto.call(this, { nome: this.inputNomeFoto.val(), contentType: this.inputContentType.val()});
+		}
 	}
 	
 	function onUploadCompleto(resposta){
@@ -45,7 +49,7 @@ Brewer.UploadFoto = (function(){
 	}
 	
 	
-	return UpploadFoto;
+	return UploadFoto;
 	
 })();
 
