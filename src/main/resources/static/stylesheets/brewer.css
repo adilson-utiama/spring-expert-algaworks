@@ -69,11 +69,12 @@
 	border-bottom-width: 1px; 
 }
 
-.bw-tabela-simples table re td {
+.bw-tabela-simples table tr td {
 	border-top: none;
 	border-bottom: 1px solid #E7EAEC;
 	padding: 10px;
 	vertical-align: middle;
+
 }
 
 

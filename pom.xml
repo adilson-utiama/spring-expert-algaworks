@@ -44,6 +44,10 @@
 		
 		<!-- Jackson - JSON -->
 		<jackson.core.version>2.8.3</jackson.core.version>
+		
+		<!-- Thumbnailator - Gerar Thumbnail -->
+		<!-- https://github.com/coobird/thumbnailator  -->
+		<thumbnailator.version>0.4.8</thumbnailator.version>
 	</properties>
 
 	<build>
@@ -194,10 +198,18 @@
 		
 		<!-- Jackson - JSON -->
 		<dependency>
-	    <groupId>com.fasterxml.jackson.core</groupId>
+	   	 	<groupId>com.fasterxml.jackson.core</groupId>
 		    <artifactId>jackson-databind</artifactId>
 		    <version>${jackson.core.version}</version>
 		    <scope>compile</scope>
+		</dependency>
+		
+		<!-- Thumbnailator - Gerador de thumbnail -->
+		<dependency>
+			<groupId>net.coobird</groupId>
+    		<artifactId>thumbnailator</artifactId>
+			<version>${thumbnailator.version}</version>
+			<scope>compile</scope>
 		</dependency>
 
 	</dependencies>
