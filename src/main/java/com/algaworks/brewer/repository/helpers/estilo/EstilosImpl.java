@@ -9,6 +9,7 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -18,11 +19,15 @@ import org.springframework.util.StringUtils;
 
 import com.algaworks.brewer.model.Estilo;
 import com.algaworks.brewer.repository.filter.EstiloFilter;
+import com.algaworks.brewer.repository.paginacao.PaginacaoUtil;
 
 public class EstilosImpl implements EstilosQueries{
 
 	@PersistenceContext
 	private EntityManager manager;
+	
+	@Autowired
+	private PaginacaoUtil paginacaoUtil;
 	
 	@SuppressWarnings("unchecked")
 	@Override
@@ -30,19 +35,7 @@ public class EstilosImpl implements EstilosQueries{
 	public Page<Estilo> filtrar(EstiloFilter filtro, Pageable pageable) {
 		Criteria criteria = manager.unwrap(Session.class).createCriteria(Estilo.class);
 		
-		int paginaAtual = pageable.getPageNumber();
-		int totalRegistroPorPagina = pageable.getPageSize();
-		int primeiroregistro = paginaAtual * totalRegistroPorPagina;
-		
-		criteria.setFirstResult(primeiroregistro);
-		criteria.setMaxResults(totalRegistroPorPagina);
-		
-		Sort sort = pageable.getSort();
-		if(sort != null){
-			Sort.Order order = sort.iterator().next();
-			String property = order.getProperty();
-			criteria.addOrder(order.isAscending() ? Order.asc(property) : Order.desc(property));
-		}
+		paginacaoUtil.preparar(criteria, pageable);
 		
 		adicionarFiltro(filtro, criteria);
 		
