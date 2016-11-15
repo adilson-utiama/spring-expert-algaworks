@@ -3,21 +3,39 @@ package com.algaworks.brewer.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
-
+@Entity
+@Table(name = "cliente")
 public class Cliente implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
+	
 	private String nome;
-	private String documentoReceitaFederal;
+	
+	@Column(name = "cpf_cnpj")
+	private String cpfOuCnpj;
 	private String telefone;
 	private String email;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "tipo_pessoa")
 	private TipoPessoa tipoPessoa;
-	private List<Endereco> enderecos;
+	
+	@Embedded
+	private Endereco endereco;
 
 	public Long getCodigo() {
 		return codigo;
@@ -35,12 +53,12 @@ public class Cliente implements Serializable {
 		this.nome = nome;
 	}
 
-	public String getDocumentoReceitaFederal() {
-		return documentoReceitaFederal;
+	public String getCpfOuCnpj() {
+		return cpfOuCnpj;
 	}
 
-	public void setDocumentoReceitaFederal(String documentoReceitaFederal) {
-		this.documentoReceitaFederal = documentoReceitaFederal;
+	public void setCpfOuCnpj(String cpfOuCnpj) {
+		this.cpfOuCnpj = cpfOuCnpj;
 	}
 
 	public String getTelefone() {
@@ -67,12 +85,12 @@ public class Cliente implements Serializable {
 		this.tipoPessoa = tipoPessoa;
 	}
 
-	public List<Endereco> getEnderecos() {
-		return enderecos;
+	public Endereco getEndereco() {
+		return endereco;
 	}
 
-	public void setEnderecos(List<Endereco> enderecos) {
-		this.enderecos = enderecos;
+	public void setEnderecos(Endereco endereco) {
+		this.endereco = endereco;
 	}
 
 	@Override
