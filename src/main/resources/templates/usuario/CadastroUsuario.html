@@ -2,7 +2,8 @@
 <html lang="pt-BR" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="layout/LayoutPadrao">
+	layout:decorate="layout/LayoutPadrao"
+	xmlns:brewer="http://brewer.algaworks.com">
 	
 <head>
 	<title>Cadastro de Usuario</title>
@@ -23,46 +24,48 @@
 		
 		<div class="container-fluid">
 		
-			<form method="POST" class="form-vertical  js-form-loading">
+			<form method="POST" class="form-vertical  js-form-loading" th:object="${usuario}" th:action="@{/usuarios/novo}">
+	
+				<brewer:message/>
 	
 				<div class="row">
-					<div class="col-sm-12 form-group">
-						<label for="nome">Nome</label>
-						<input id="nome" type="text" class="form-control"/>
+					<div class="col-sm-12 form-group bw-required" brewer:classforerror="nome">
+						<label for="nome" class="control-label">Nome</label>
+						<input id="nome" type="text" class="form-control" th:field="*{nome}"/>
 					</div>
 				</div>
 				
 				<div class="row">
-					<div class="col-sm-6 form-group">
-						<label for="email">E-Mail</label>
-						<input id="email" type="text" class="form-control" />
+					<div class="col-sm-6 form-group bw-required" brewer:classforerror="email">
+						<label for="email"  class="control-label">E-Mail</label>
+						<input id="email" type="text" class="form-control" th:field="*{email}"/>
 					</div>
-					<div class="col-sm-3 form-group">
-						<label for="dataNascimento">Data de Nascimento</label>
-						<input id="dataNascimento" type="text" class="form-control" />
+					<div class="col-sm-3 form-group bw-required">
+						<label for="dataNascimento" class="control-label">Data de Nascimento</label>
+						<input id="dataNascimento" type="text" class="form-control" th:field="*{dataNascimento}"/>
 					</div>
 				</div>
 				
 				<div class="row">
-					<div class="col-sm-3 form-group">
-						<label for="senha">Senha</label>
-						<input id="senha" type="password" class="form-control" />
+					<div class="col-sm-3 form-group" >
+						<label for="senha" class="control-label">Senha</label>
+						<input id="senha" type="password" class="form-control" th:field="*{senha}"/>
 					</div>
-					<div class="col-sm-3 form-group">
-						<label for="confirmacaoSenha">Confirmação de Senha</label>
-						<input id="confirmacaoSenha" type="password" class="form-control" />
+					<div class="col-sm-3 form-group" brewer:classforerror="confirmacaoSenha">
+						<label for="confirmacaoSenha" class="control-label">Confirmação de Senha</label>
+						<input id="confirmacaoSenha" type="password" class="form-control" th:field="*{confirmacaoSenha}" />
 					</div>
 					<div class="col-sm-3 form-group">
 						<label for="status">Status</label>
 						<div >
 							<input type="checkbox" class="js-status" data-size="small" data-off-color="danger"
-								data-on-text="Ativo" data-off-text="Inativo"/>
+								data-on-text="Ativo" data-off-text="Inativo" th:field="*{ativo}"/>
 						</div>
 					</div>
 				</div>
 				
 				<div class="row">
-					<div class="col-sm-6 form-group">
+					<div class="col-sm-6 form-group bw-required" brewer:classforerror="grupos">
 						<label for="grupos" class="control-label">Grupos</label>
 						<div>
 	  						<div class="checkbox  checkbox-inline"> 
