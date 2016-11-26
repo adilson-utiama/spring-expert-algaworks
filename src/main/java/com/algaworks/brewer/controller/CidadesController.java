@@ -30,7 +30,7 @@ import com.algaworks.brewer.service.CadastroCidadeService;
 import com.algaworks.brewer.service.exception.NomeCidadeJaCadastradaException;
 
 @Controller
-@RequestMapping("/cidades/")
+@RequestMapping("/cidades")
 public class CidadesController {
 	
 	@Autowired
@@ -43,7 +43,7 @@ public class CidadesController {
 	private CadastroCidadeService cadastroCidadeService;
 
 
-	@RequestMapping("nova")
+	@RequestMapping("/nova")
 	public ModelAndView nova(Cidade cidade){
 		ModelAndView mv = new ModelAndView("cidade/CadastroCidade");
 		mv.addObject("estados", this.estados.findAll());

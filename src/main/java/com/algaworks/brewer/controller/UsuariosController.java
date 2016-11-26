@@ -17,7 +17,7 @@ import com.algaworks.brewer.service.exception.EmailJaCadastradoException;
 import com.algaworks.brewer.service.exception.SenhaObrigatoriaUsuarioException;
 
 @Controller
-@RequestMapping("/usuarios/")
+@RequestMapping("/usuarios")
 public class UsuariosController {
 	
 	@Autowired
@@ -26,7 +26,7 @@ public class UsuariosController {
 	@Autowired
 	private Grupos grupos;
 
-	@RequestMapping("novo")
+	@RequestMapping("/novo")
 	public ModelAndView novo(Usuario usuario){
 		ModelAndView mv = new ModelAndView("usuario/CadastroUsuario");
 		mv.addObject("grupos", grupos.findAll());
