@@ -1,5 +1,6 @@
 package com.algaworks.brewer.repository.helpers.usuario;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
@@ -21,6 +22,12 @@ public class UsuariosImpl implements UsuariosQueries{
 					.getResultList()
 					.stream()
 					.findFirst();
+	}
+
+	@Override
+	public List<String> permissoes(Usuario usuario) {
+		String query = "select distinct p.nome from Usuario u inner join u.grupos g inner join g.permissoes p where u = :usuario";
+		return manager.createQuery(query, String.class).setParameter("usuario", usuario).getResultList();
 	}
 
 }
