@@ -20,7 +20,7 @@ Brewer.UploadFoto = (function(){
 			allow: '*.(jpg|jpeg|png)',
 			action: this.containerFotoCerveja.data('url-fotos'),
 			complete: onUploadCompleto.bind(this),
-			beforeSEnd: adicionaCsrfToken
+			beforeSend: adicionaCsrfToken
 		}
 		
 		UIkit.uploadSelect($('#upload-select'), settings);
