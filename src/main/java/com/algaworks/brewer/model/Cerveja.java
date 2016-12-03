@@ -39,7 +39,7 @@ public class Cerveja implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer codigo;
+	private Long codigo;
 
 	@SKU
 	@NotBlank(message = "SKU é obrigatório")
@@ -90,11 +90,11 @@ public class Cerveja implements Serializable {
 									// usuario digitando em maiscula
 	}
 
-	public Integer getCodigo() {
+	public Long getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(Integer codigo) {
+	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
 	}
 

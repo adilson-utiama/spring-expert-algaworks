@@ -8,14 +8,14 @@ import com.algaworks.brewer.model.Origem;
 
 public class CervejaDTO {
 
-	private Integer codigo;
+	private Long codigo;
 	private String sku;
 	private String nome;
 	private String origem;
 	private BigDecimal valor;
 	private String foto;
 
-	public CervejaDTO(Integer codigo, String sku, String nome, Origem origem, BigDecimal valor, String foto) {
+	public CervejaDTO(Long codigo, String sku, String nome, Origem origem, BigDecimal valor, String foto) {
 		this.codigo = codigo;
 		this.sku = sku;
 		this.nome = nome;
@@ -24,11 +24,11 @@ public class CervejaDTO {
 		this.foto = StringUtils.isEmpty(foto) ? "cerveja-mock.png" : foto;
 	}
 
-	public Integer getCodigo() {
+	public Long getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(Integer codigo) {
+	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
 	}
 
