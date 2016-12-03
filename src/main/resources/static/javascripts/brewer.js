@@ -82,6 +82,11 @@ Brewer.formatarMoeda = function(valor) {
 	return numeral(valor).format('0,0.00');
 }
 
+Brewer.recuperarValor = function(valorFormatado) {
+	numeral.language('pt-br');
+	return numeral().unformat(valorFormatado);
+}
+
 
 $(function(){
 	var maskMoney = new Brewer.MaskMoney();
