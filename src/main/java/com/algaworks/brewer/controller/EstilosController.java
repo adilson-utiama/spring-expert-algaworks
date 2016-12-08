@@ -21,7 +21,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.algaworks.brewer.controller.page.PageWrapper;
 import com.algaworks.brewer.exception.NomeEstiloJaCadastradoException;
-import com.algaworks.brewer.model.Cerveja;
 import com.algaworks.brewer.model.Estilo;
 import com.algaworks.brewer.repository.Estilos;
 import com.algaworks.brewer.repository.filter.EstiloFilter;
