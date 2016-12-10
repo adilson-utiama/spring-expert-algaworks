@@ -6,7 +6,6 @@ public class FotoDTO {
 	private String contentType;
 
 	public FotoDTO(String nome, String contentType) {
-		super();
 		this.nome = nome;
 		this.contentType = contentType;
 	}
