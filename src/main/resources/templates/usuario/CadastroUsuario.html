@@ -20,7 +20,8 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-xs-10">
-						<h1>Cadastro de Usuarios</h1>
+						<h1 th:if="${usuario.novo}">Cadastro de Usuarios</h1>
+						<h1 th:unless="${usuario.novo}" th:text="|Edição do usuário ${usuario.nome}|">Cadastro de Usuarios</h1>
 					</div>
 					
 					<div class="col-xs-2" sec:authorize-url="/usuarios">
@@ -36,9 +37,12 @@
 		
 		<div class="container-fluid">
 		
-			<form method="POST" class="form-vertical  js-form-loading" th:object="${usuario}" th:action="@{/usuarios/novo}">
+			<form method="POST" class="form-vertical  js-form-loading" th:object="${usuario}" 
+				th:action="${usuario.novo} ? @{/usuarios/novo} : @{/usuarios/{codigo}(codigo=${usuario.codigo})}">
 	
 				<brewer:message/>
+				
+				<input type="hidden" th:field="*{codigo}"/>
 	
 				<div class="row">
 					<div class="col-sm-12 form-group bw-required" brewer:classforerror="nome">
@@ -68,7 +72,7 @@
 						<label for="confirmacaoSenha" class="control-label">Confirmação de Senha</label>
 						<input id="confirmacaoSenha" type="password" class="form-control" th:field="*{confirmacaoSenha}" />
 					</div>
-					<div class="col-sm-3 form-group">
+					<div class="col-sm-3 form-group"  th:if="${#authentication.principal.usuario.codigo != usuario.codigo}">
 						<label for="status">Status</label>
 						<div >
 							<input type="checkbox" class="js-status" data-size="small" data-off-color="danger"
