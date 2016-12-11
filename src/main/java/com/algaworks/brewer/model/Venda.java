@@ -25,8 +25,11 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 @Entity
 @Table(name = "venda")
+@DynamicUpdate
 public class Venda implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -217,6 +220,14 @@ public class Venda implements Serializable {
 				.add(Optional.ofNullable(valorFrete).orElse(BigDecimal.ZERO))
 				.subtract(Optional.ofNullable(valorDesconto).orElse(BigDecimal.ZERO));
 		return valorTotal;
+	}
+	
+	public boolean isSalvarPermitido(){
+		return !status.equals(StatusVenda.CANCELADA);
+	}
+	
+	public boolean isSalvarProibido(){
+		return !isSalvarPermitido();
 	}
 
 
