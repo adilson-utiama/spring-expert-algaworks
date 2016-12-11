@@ -9,4 +9,6 @@ import com.algaworks.brewer.repository.helpers.venda.VendasQueries;
 @Repository
 public interface Vendas extends JpaRepository<Venda, Long>, VendasQueries{
 
+	
+
 }
