@@ -21,6 +21,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.br.CNPJ;
 import org.hibernate.validator.constraints.br.CPF;
 import org.hibernate.validator.group.GroupSequenceProvider;
+import org.springframework.util.StringUtils;
 
 import com.algaworks.brewer.model.validation.ClienteGroupSequenceProvider;
 import com.algaworks.brewer.model.validation.group.CnpjGroup;
@@ -129,6 +130,10 @@ public class Cliente implements Serializable {
 	
 	public String getCpfOuCnpjSemFormatacao() {
 		return TipoPessoa.removerFormatacao(this.cpfOuCnpj);
+	}
+	
+	public boolean isNovo(){
+		return StringUtils.isEmpty(this.codigo);
 	}
 
 	@Override

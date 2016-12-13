@@ -7,19 +7,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.algaworks.brewer.controller.page.PageWrapper;
+import com.algaworks.brewer.model.Cliente;
 import com.algaworks.brewer.model.Usuario;
 import com.algaworks.brewer.repository.Grupos;
 import com.algaworks.brewer.repository.Usuarios;
@@ -27,6 +31,7 @@ import com.algaworks.brewer.repository.filter.UsuarioFilter;
 import com.algaworks.brewer.service.CadastroUsuarioService;
 import com.algaworks.brewer.service.StatusUsuario;
 import com.algaworks.brewer.service.exception.EmailJaCadastradoException;
+import com.algaworks.brewer.service.exception.ImpossivelExcluirEntidadeException;
 import com.algaworks.brewer.service.exception.SenhaObrigatoriaUsuarioException;
 
 @Controller
@@ -95,6 +100,17 @@ public class UsuariosController {
 		ModelAndView mv = novo(usuario);
 		mv.addObject(usuario);
 		return mv;
+	}
+	
+	@DeleteMapping("/{codigo}")
+	public @ResponseBody ResponseEntity<?> excluir(@PathVariable("codigo") Usuario usuario){
+		
+		try{
+			cadastrousuarioService.excluir(usuario);
+		}catch(ImpossivelExcluirEntidadeException e){
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+		return ResponseEntity.ok().build();
 	}
 	
 	

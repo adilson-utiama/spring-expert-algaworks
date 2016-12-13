@@ -12,6 +12,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.util.StringUtils;
 
 @Entity
 @Table(name = "estilo")
@@ -49,6 +50,10 @@ public class Estilo implements Serializable{
 	
 	public List<Cerveja> getCervejas() {
 		return cervejas;
+	}
+	
+	public boolean isNovo(){
+		return StringUtils.isEmpty(this.codigo);
 	}
 
 	@Override

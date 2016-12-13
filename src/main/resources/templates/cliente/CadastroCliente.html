@@ -18,7 +18,8 @@
 				<div class="row">
 				
 					<div class="col-xs-10">
-						<h1>Cadastro de Cliente</h1>
+						<h1 th:if="${cliente.novo}">Cadastro de Cliente</h1>
+						<h1 th:unless="${cliente.novo}" th:text="|Edição do cliente - ${cliente.nome}|">Ediçao de Cliente</h1>
 					</div>
 					<div class="col-xs-2">
 						<div class="aw-page-header-controls">
@@ -37,6 +38,8 @@
 			<form method="POST" th:object="${cliente}" th:action="@{/clientes/novo}">
 			
 				<brewer:message />
+				
+				<input type="hidden" th:field="*{codigo}"/>
 			
 				<div class="row">
 					<div class="col-sm-12 form-group bw-required" brewer:classforerror="nome">
