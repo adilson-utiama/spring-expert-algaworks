@@ -1,7 +1,11 @@
 package com.algaworks.brewer.repository.helpers.venda;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.MonthDay;
+import java.time.Year;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,6 +23,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import com.algaworks.brewer.model.StatusVenda;
 import com.algaworks.brewer.model.TipoPessoa;
 import com.algaworks.brewer.model.Venda;
 import com.algaworks.brewer.repository.filter.VendaFilter;
@@ -51,6 +56,36 @@ public class VendasImpl implements VendasQueries{
 		criteria.add(Restrictions.eq("codigo", codigo));
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		return (Venda) criteria.uniqueResult();
+	}
+	
+	@Override
+	public BigDecimal valorTotalNoAno() {
+		String query = "select sum(valorTotal) from Venda where year(dataCriacao) = :ano and status = :status";
+		Optional<BigDecimal> optional = Optional.ofNullable(manager.createQuery(query, BigDecimal.class)
+				.setParameter("ano", Year.now().getValue())
+				.setParameter("status", StatusVenda.EMITIDA)
+				.getSingleResult());
+		return optional.orElse(BigDecimal.ZERO);
+	}
+	
+	@Override
+	public BigDecimal valorTicketMedioNoAno() {
+		String query = "select sum(valorTotal)/count(*) from Venda where year(dataCriacao) = :ano and status = :status";
+		Optional<BigDecimal> optional = Optional.ofNullable(manager.createQuery(query, BigDecimal.class)
+				.setParameter("ano", Year.now().getValue())
+				.setParameter("status", StatusVenda.EMITIDA)
+				.getSingleResult());
+		return optional.orElse(BigDecimal.ZERO);
+	}
+	
+	@Override
+	public BigDecimal valorTotalNoMes() {
+		String query = "select sum(valorTotal) from Venda where month(dataCriacao) = :mes and status = :status";
+		Optional<BigDecimal> optional = Optional.ofNullable(manager.createQuery(query, BigDecimal.class)
+				.setParameter("mes", MonthDay.now().getMonthValue())
+				.setParameter("status", StatusVenda.EMITIDA)
+				.getSingleResult());
+		return optional.orElse(BigDecimal.ZERO);
 	}
 
 	
@@ -100,6 +135,8 @@ public class VendasImpl implements VendasQueries{
 			}
 		}
 	}
+
+	
 
 	
 }
